@@ -1,0 +1,14 @@
+D:\C_source\GameServer\GameServer\bin\Debug\GameServer.exe.config
+D:\C_source\GameServer\GameServer\bin\Debug\GameServer.exe
+D:\C_source\GameServer\GameServer\bin\Debug\GameServer.pdb
+D:\C_source\GameServer\GameServer\obj\Debug\GameServer.csprojResolveAssemblyReference.cache
+D:\C_source\GameServer\GameServer\obj\Debug\MainWindow.g.cs
+D:\C_source\GameServer\GameServer\obj\Debug\App.g.cs
+D:\C_source\GameServer\GameServer\obj\Debug\GameServer_MarkupCompile.cache
+D:\C_source\GameServer\GameServer\obj\Debug\GameServer_MarkupCompile.lref
+D:\C_source\GameServer\GameServer\obj\Debug\MainWindow.baml
+D:\C_source\GameServer\GameServer\obj\Debug\GameServer.g.resources
+D:\C_source\GameServer\GameServer\obj\Debug\GameServer.Properties.Resources.resources
+D:\C_source\GameServer\GameServer\obj\Debug\GameServer.csproj.GenerateResource.Cache
+D:\C_source\GameServer\GameServer\obj\Debug\GameServer.exe
+D:\C_source\GameServer\GameServer\obj\Debug\GameServer.pdb

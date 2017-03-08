@@ -1,0 +1,21 @@
+﻿<Window x:Class="GameServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameServer"
+        mc:Ignorable="d"
+        Title="游戏服务器" Height="600" Width="800">
+    <Grid>
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="800" SelectionChanged="listView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="200">IP地址  </GridViewColumn>
+                    <GridViewColumn Width="200">用户状态</GridViewColumn>
+                    <GridViewColumn Width="200">玩家状态</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>
