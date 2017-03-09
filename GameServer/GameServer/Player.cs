@@ -8,6 +8,9 @@ namespace GameServer
 {
     class Player
     {
+        /// <summary>
+        /// 玩家信息
+        /// </summary>
         private String ipAddress;
         public String IPAddress {
             get { return ipAddress; }

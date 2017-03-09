@@ -8,10 +8,15 @@ namespace GameServer
 {
     class Game
     {
+        /// <summary>
+        /// 总的游戏服务器
+        /// </summary>
+        private int [][] myMap;
         private Server myServer;
         public void Init()
         {
-            Server myServer = new Server();
+            myServer = new Server();
+            myServer.Begin();
         }
     }
 }

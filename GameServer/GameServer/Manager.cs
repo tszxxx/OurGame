@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
+    /// <summary>
+    /// 游戏玩家管理
+    /// </summary>
     class Manager
     {
         private Player[] myPlayers;

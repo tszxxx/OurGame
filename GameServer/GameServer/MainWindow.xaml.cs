@@ -25,7 +25,7 @@ namespace GameServer
         {
             InitializeComponent();
             myGame = new Game();
+            myGame.Init();
         }
-        
     }
 }

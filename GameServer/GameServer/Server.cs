@@ -10,6 +10,9 @@ namespace GameServer
 {
     public class Server
     {
+        /// <summary>
+        /// 游戏服务器
+        /// </summary>
         private Manager myManager;
         public Server(){
             myManager = new Manager();
@@ -36,7 +39,7 @@ namespace GameServer
                 myUdpClient = new UdpClient(11000);
             try
             {
-                IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 11000);
                 // Blocks until a message returns on this socket from a remote host.
                 Byte[] receiveBytes = myUdpClient.Receive(ref RemoteIpEndPoint);
                 string returnData = Encoding.ASCII.GetString(receiveBytes);
@@ -47,6 +50,10 @@ namespace GameServer
             {
                 Console.WriteLine(e.ToString());
             }
+        }
+        public void Begin()
+        {
+
         }
     }
 }
