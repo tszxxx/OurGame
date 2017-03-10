@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,7 +26,14 @@ namespace GameClient
         {
             InitializeComponent();
             myClient = new Client();
-            myClient.Begin();
+            Thread MainThread = new Thread(new ThreadStart(Client.Begin));
+            MainThread.Start();
+        }
+
+        private void onClick(object sender, RoutedEventArgs e)
+        {
+
+            myClient.IPAddr = myTextBox.Text.ToString();
         }
     }
 }
