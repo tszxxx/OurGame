@@ -13,7 +13,7 @@ namespace GameServer
     public class Server
     {
         private static Manager myManager;
-        private static int sendPort = 8888;
+        private static int sendPort = 6666;
         private static int receivePort = 6667;
         /* Add by BBge - Bgein*/
         private static bool isConnected = false;
@@ -34,7 +34,7 @@ namespace GameServer
                     myUdpClient = new UdpClient(sendPort);
                 try
                 {
-                    myUdpClient.Connect("127.0.0.1", sendPort);
+                    myUdpClient.Connect("10.180.124.206", sendPort);
                     // String sendString = myManager.MYPlayers[1].PlayerToString();
                     Byte[] sendBytes = Encoding.Default.GetBytes("i'm from server");
                     myUdpClient.Send(sendBytes, sendBytes.Length);
@@ -57,7 +57,7 @@ namespace GameServer
         {
             UdpClient myUdpClient = my as UdpClient;
             if (myUdpClient == null)
-                myUdpClient = new UdpClient(6667);
+                myUdpClient = new UdpClient(receivePort);
             try
             {
                 IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
@@ -83,9 +83,8 @@ namespace GameServer
         }
         public void Begin()
         {
-            IPEndPoint allIpep = new IPEndPoint(
-                    IPAddress.Parse("127.0.0.1"), receivePort); // 本机IP和监听端口号
-            udpcReceive = new UdpClient(allIpep);
+            
+            udpcReceive = new UdpClient(receivePort);
             udpcSend = new UdpClient(sendPort);
             
             Thread mainReceiveServer = new Thread(new ParameterizedThreadStart(Receive));
