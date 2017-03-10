@@ -20,9 +20,12 @@ namespace GameClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Client myClient;
         public MainWindow()
         {
             InitializeComponent();
+            myClient = new Client();
+            myClient.Begin();
         }
     }
 }
