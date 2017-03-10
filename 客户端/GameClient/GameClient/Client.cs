@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GameClient
 {
@@ -35,7 +36,7 @@ namespace GameClient
                 for (int i = 0; i < SendBytes.Length; i++)
                     SendBytes[i] = 1;
                 UdpClient.Connect(Ipaddr, port);
-                UdpClient.Send(SendBytes, SendBytes.Length);
+                UdpClient.Send(SendBytes, SendBytes.Length).ToString());
             }
             catch(Exception e)
             {
@@ -57,6 +58,7 @@ namespace GameClient
         }
         public void Begin()
         {
+            Ipaddr = "10.211.55.30";
             UdpClient = new UdpClient(port);
             sendThread = new Thread(new ThreadStart(SendFunc));
             recvThread = new Thread(new ThreadStart(RecvFunc));
