@@ -52,7 +52,7 @@ namespace GameClient
             get { return mr; }
             set { mr = value; }
         }
-        private int x, y;
+        private int x, y, size;
         public int X
         {
             get { return x; }
@@ -62,6 +62,11 @@ namespace GameClient
         {
             get { return y; }
             set { y = value; }
+        }
+        public int SIZE
+        {
+            get { return size; }
+            set { size = value; }
         }
         public void Reset()
         {
@@ -73,6 +78,7 @@ namespace GameClient
             mr = 0;
             x = 0;
             y = 0;
+            size = 0;
         }
         public byte[] GetBytes()
         {
@@ -101,6 +107,9 @@ namespace GameClient
             count++;
             for (i = 0; i < 4; i++)
                 Bytes[i + 4 * count] = (Byte)(y >> ((3 - i) << 3));
+            count++;
+            for (i = 0; i < 4; i++)
+                Bytes[i + 4 * count] = (Byte)(size >> ((3 - i) << 3));
             count++;
             return Bytes;
         }
@@ -131,6 +140,9 @@ namespace GameClient
             count++;
             for (i = 0; i < 4; i++)
                 y += Bytes[i + 4 * count] << ((3 - i) << 3);
+            count++;
+            for (i = 0; i < 4; i++)
+                size += Bytes[i + 4 * count] << ((3 - i) << 3);
             count++;
         }
     }
