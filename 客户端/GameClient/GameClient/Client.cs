@@ -18,12 +18,29 @@ namespace GameClient
         private static Byte[] SendBytes, RecvBytes;
         private static string Ipaddr;
         private static Player[] myPlayers;
+        private static Byte CurPlayer;
         public string IPAddr {
             get { return Ipaddr; }
             set { Ipaddr = value; }
         }
         private static int SendPort = 6667;
         private static int RecvPort = 6666;
+        public static void Begin()
+        {
+            mySendSem = new Semaphore(0, 1);
+            myPlayers = new Player[10];
+            CurPlayer = 0;
+            Ipaddr = "10.211.55.30";
+            SendUdpClient = new UdpClient(SendPort);
+            RecvUdpClient = new UdpClient(RecvPort);
+            SendBytes = new byte[320];
+            RecvBytes = new byte[320];
+            mySendSem.Release();
+            sendThread = new Thread(new ThreadStart(SendFunc));
+            recvThread = new Thread(new ThreadStart(RecvFunc));
+            sendThread.Start();
+            recvThread.Start();
+        }
         private static void SendFunc()
         {
             while (true)
@@ -61,21 +78,6 @@ namespace GameClient
                     break;
                 }
             }
-        }
-        public static void Begin()
-        {
-            mySendSem = new Semaphore(0, 1);
-            myPlayers = new Player[10];
-            Ipaddr = "10.211.55.30";
-            SendUdpClient = new UdpClient(SendPort);
-            RecvUdpClient = new UdpClient(RecvPort);
-            SendBytes = new byte[320];
-            RecvBytes = new byte[320];
-            mySendSem.Release();
-            sendThread = new Thread(new ThreadStart(SendFunc));
-            recvThread = new Thread(new ThreadStart(RecvFunc));
-            sendThread.Start();
-            recvThread.Start();
         }
         private static void RecvPlayers()
         {
@@ -127,6 +129,18 @@ namespace GameClient
                 SendBytes[29 + 32 * i] = (Byte)(myPlayers[i].Y >> 16);
                 SendBytes[30 + 32 * i] = (Byte)(myPlayers[i].Y >> 8);
                 SendBytes[31 + 32 * i] = (Byte)myPlayers[i].Y;
+            }
+        }
+        private static void UseMagic(int MagicNum)
+        {
+            switch (MagicNum)
+            {
+                case 0: myPlayers[CurPlayer].HP = 0; myPlayers[CurPlayer + 1].HP = 200; mySendSem.Release(); break;
+                case 1: myPlayers[CurPlayer].MP = 0; myPlayers[CurPlayer + 1].HP = 200; mySendSem.Release(); break;
+                case 2: myPlayers[CurPlayer].PD = 0; myPlayers[CurPlayer + 1].HP = 200; mySendSem.Release(); break;
+                case 3: myPlayers[CurPlayer].MD = 0; myPlayers[CurPlayer + 1].HP = 200; mySendSem.Release(); break;
+                case 4: myPlayers[CurPlayer].PR = 0; myPlayers[CurPlayer + 1].HP = 200; mySendSem.Release(); break; 
+                default:break;
             }
         }
         public Client()

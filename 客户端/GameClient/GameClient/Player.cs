@@ -63,5 +63,75 @@ namespace GameClient
             get { return y; }
             set { y = value; }
         }
+        public void Reset()
+        {
+            hp = 0;
+            mp = 0;
+            pd = 0;
+            md = 0;
+            pr = 0;
+            mr = 0;
+            x = 0;
+            y = 0;
+        }
+        public byte[] GetBytes()
+        {
+            byte[] Bytes = new Byte[32];
+            int i, count = 0;
+            for (i = 0; i < 4; i++)
+                Bytes[i + 4 * count] = (Byte)(hp >> ((3 - i) << 3));
+            count++;
+            for (i = 0; i < 4; i++)
+                Bytes[i + 4 * count] = (Byte)(mp >> ((3 - i) << 3));
+            count++;
+            for (i = 0; i < 4; i++)
+                Bytes[i + 4 * count] = (Byte)(pd >> ((3 - i) << 3));
+            count++;
+            for (i = 0; i < 4; i++)
+                Bytes[i + 4 * count] = (Byte)(md >> ((3 - i) << 3));
+            count++;
+            for (i = 0; i < 4; i++)
+                Bytes[i + 4 * count] = (Byte)(pr >> ((3 - i) << 3));
+            count++;
+            for (i = 0; i < 4; i++)
+                Bytes[i + 4 * count] = (Byte)(mr >> ((3 - i) << 3));
+            count++;
+            for (i = 0; i < 4; i++)
+                Bytes[i + 4 * count] = (Byte)(x >> ((3 - i) << 3));
+            count++;
+            for (i = 0; i < 4; i++)
+                Bytes[i + 4 * count] = (Byte)(y >> ((3 - i) << 3));
+            count++;
+            return Bytes;
+        }
+        public void SetBytes(byte[] Bytes)
+        {
+            Reset();
+            int i, count = 0;
+            for (i = 0; i < 4; i++)
+                hp += Bytes[i + 4 * count] << ((3 - i) << 3);
+            count++;
+            for (i = 0; i < 4; i++)
+                mp += Bytes[i + 4 * count] << ((3 - i) << 3);
+            count++;
+            for (i = 0; i < 4; i++)
+                pd += Bytes[i + 4 * count] << ((3 - i) << 3);
+            count++;
+            for (i = 0; i < 4; i++)
+                md += Bytes[i + 4 * count] << ((3 - i) << 3);
+            count++;
+            for (i = 0; i < 4; i++)
+                pr += Bytes[i + 4 * count] << ((3 - i) << 3);
+            count++;
+            for (i = 0; i < 4; i++)
+                mr += Bytes[i + 4 * count] << ((3 - i) << 3);
+            count++;
+            for (i = 0; i < 4; i++)
+                x += Bytes[i + 4 * count] << ((3 - i) << 3);
+            count++;
+            for (i = 0; i < 4; i++)
+                y += Bytes[i + 4 * count] << ((3 - i) << 3);
+            count++;
+        }
     }
 }
