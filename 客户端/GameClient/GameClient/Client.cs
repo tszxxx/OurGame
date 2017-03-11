@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -12,6 +13,7 @@ namespace GameClient
 {
     class Client
     {
+        private static StreamWriter mySW;
         private static UdpClient SendUdpClient, RecvUdpClient;
         private static Thread sendThread, recvThread;
         private static Semaphore mySendSem;
@@ -55,7 +57,8 @@ namespace GameClient
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.ToString());
+                    DateTime curTime = new DateTime();
+                    mySW.WriteLine(curTime.ToString() + "Send函数失败，退出线程！" + "错误原因：" + e.ToString());
                     break;
                 }
             }
@@ -74,7 +77,8 @@ namespace GameClient
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.ToString());
+                    DateTime curTime = new DateTime();
+                    mySW.WriteLine(curTime.ToString() + "Recv函数失败，退出线程！" + "错误原因：" + e.ToString());
                     break;
                 }
             }
@@ -145,6 +149,7 @@ namespace GameClient
         }
         public Client()
         {
+            mySW = new StreamWriter("GameClient.log");
         }
         ~Client()
         {
@@ -152,6 +157,7 @@ namespace GameClient
             RecvUdpClient.Close();
             sendThread.Join();
             recvThread.Join();
+            mySW.Close();
         }
     }
 }
