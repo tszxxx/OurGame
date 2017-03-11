@@ -60,35 +60,8 @@ namespace GameClient
         }
         public int Y
         {
-            get { return Y; }
-            set { Y = value; }
-        }
-        public String PlayerToString(){
-            String mystring;
-            mystring = hp.ToString() + " ";
-            mystring += mp.ToString() + " ";
-            mystring += pd.ToString() + " ";
-            mystring += md.ToString() + " ";
-            mystring += pr.ToString() + " ";
-            mystring += mr.ToString() + " ";
-            mystring += x.ToString() + " ";
-            mystring += y.ToString() + " ";
-            return mystring;
-        }
-        public void StringToPlayer(String mystring)
-        {
-            int[] index = new int[10];
-            index[0] = mystring.IndexOf(' ', 0);
-            for (int i = 1; i < 10; i++)
-                index[i] = mystring.IndexOf(' ', index[i - 1] + 1);
-            hp = int.Parse(mystring.Substring(0, index[0] - 1));
-            mp = int.Parse(mystring.Substring(index[0] + 1, index[1] - index[0]));
-            pd = int.Parse(mystring.Substring(index[1] + 1, index[2] - index[1]));
-            md = int.Parse(mystring.Substring(index[2] + 1, index[3] - index[2]));
-            pr = int.Parse(mystring.Substring(index[3] + 1, index[4] - index[3]));
-            mr = int.Parse(mystring.Substring(index[4] + 1, index[5] - index[4]));
-            x = int.Parse(mystring.Substring(index[5] + 1, index[6] - index[5]));
-            y = int.Parse(mystring.Substring(index[6] + 1, index[7] - index[6]));
+            get { return y; }
+            set { y = value; }
         }
     }
 }

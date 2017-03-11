@@ -14,7 +14,8 @@ namespace GameClient
     {
         private static UdpClient SendUdpClient, RecvUdpClient;
         private static Thread sendThread, recvThread;
-        private static Semaphore mySendSem, myPlayerSem;
+        private static Semaphore mySendSem;
+        private static Byte[] SendBytes, RecvBytes;
         private static string Ipaddr;
         private static Player[] myPlayers;
         public string IPAddr {
@@ -23,9 +24,6 @@ namespace GameClient
         }
         private static int SendPort = 6667;
         private static int RecvPort = 6666;
-        public Client()
-        {
-        }
         private static void SendFunc()
         {
             while (true)
@@ -33,10 +31,7 @@ namespace GameClient
                 mySendSem.WaitOne();
                 try
                 {
-                    Byte[] SendBytes;
-                    SendBytes = new Byte[240];
-                    for (int i = 0; i < SendBytes.Length; i++)
-                        SendBytes[i] = (byte) '1';
+                    SendPlayers();
                     SendUdpClient.Connect(Ipaddr, SendPort);
                     int t = SendUdpClient.Send(SendBytes, SendBytes.Length);
                     MessageBox.Show("已发送"+t.ToString()+"个字节!");
@@ -56,9 +51,9 @@ namespace GameClient
                 {
                     //IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Parse(Ipaddr), RecvPort);
                     IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-                    Byte[] receiveBytes = Client.RecvUdpClient.Receive(ref RemoteIpEndPoint);
-                    MessageBox.Show(receiveBytes.ToString());
-                    RecvPlayers(receiveBytes);
+                    RecvBytes = Client.RecvUdpClient.Receive(ref RemoteIpEndPoint);
+                    MessageBox.Show(RecvBytes.ToString());
+                    RecvPlayers();
                 }
                 catch (Exception e)
                 {
@@ -70,18 +65,19 @@ namespace GameClient
         public static void Begin()
         {
             mySendSem = new Semaphore(0, 1);
-            myPlayerSem = new Semaphore(0, 1);
             myPlayers = new Player[10];
             Ipaddr = "10.211.55.30";
             SendUdpClient = new UdpClient(SendPort);
             RecvUdpClient = new UdpClient(RecvPort);
+            SendBytes = new byte[320];
+            RecvBytes = new byte[320];
             mySendSem.Release();
             sendThread = new Thread(new ThreadStart(SendFunc));
             recvThread = new Thread(new ThreadStart(RecvFunc));
             sendThread.Start();
             recvThread.Start();
         }
-        private static void RecvPlayers(Byte[] RecvBytes)
+        private static void RecvPlayers()
         {
             for (int i = 0; i < 10; i++)
             {
@@ -95,9 +91,8 @@ namespace GameClient
                 myPlayers[i].Y = (RecvBytes[28 + 32 * i] << 24) + (RecvBytes[29 + 32 * i] << 16) + (RecvBytes[30 + 32 * i] << 8) + RecvBytes[31 + 32 * i];
             }
         }
-        private static Byte[] SendPlayers()
+        private static void SendPlayers()
         {
-            Byte[] SendBytes = new byte[320];
             for (int i = 0; i < 10; i++)
             {
                 SendBytes[0 + 32 * i] = (Byte)(myPlayers[i].HP >> 24);
@@ -133,7 +128,16 @@ namespace GameClient
                 SendBytes[30 + 32 * i] = (Byte)(myPlayers[i].Y >> 8);
                 SendBytes[31 + 32 * i] = (Byte)myPlayers[i].Y;
             }
-            return SendBytes;
+        }
+        public Client()
+        {
+        }
+        ~Client()
+        {
+            SendUdpClient.Close();
+            RecvUdpClient.Close();
+            sendThread.Join();
+            recvThread.Join();
         }
     }
 }
