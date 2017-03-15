@@ -1,0 +1,7 @@
+1/1/0001 12:00:00 AMRecv函数失败，退出线程！错误原因：System.Net.Sockets.SocketException: 一个封锁操作被对 WSACancelBlockingCall 的调用中断。
+
+  at System.Net.Sockets.Socket.ReceiveFrom_nochecks_exc (System.Byte[] buf, Int32 offset, Int32 size, SocketFlags flags, System.Net.EndPoint& remote_end, Boolean throwOnError, System.Int32& error) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.ReceiveFrom_nochecks (System.Byte[] buf, Int32 offset, Int32 size, SocketFlags flags, System.Net.EndPoint& remote_end) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.ReceiveFrom (System.Byte[] buffer, System.Net.EndPoint& remoteEP) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.UdpClient.Receive (System.Net.IPEndPoint& remoteEP) [0x00000] in <filename unknown>:0 
+  at GameClient.Client.RecvFunc () [0x00017] in E:\unity3D_project\New Unity Project\Assets\Client.cs:74 
