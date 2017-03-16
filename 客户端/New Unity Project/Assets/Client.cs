@@ -160,6 +160,10 @@ namespace GameClient
         {
             mySendSem.Release();
         }
+        public Player getPlayer(int num)
+        {
+            return myPlayers[num];
+        }
         public Client()
         {
         }
